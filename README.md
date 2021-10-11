@@ -1,16 +1,17 @@
 # Credit_Risk_Analysis
 
- ## Analysis
+## Overview of the analysis: 
+Multiple methodologies and techniques are leveraged to predict credit risk using a dataset from LendingClub, which is a peer-to-peer lending services company. 
+
+As credit risk is an  unbalanced classification problem where good loans signficantly outnumber risky loans, Python imbalanced-learn and scikit-learn libraries are used to build and evaluate models. Resampling algrotihms include RandomOverSampler, SMOTE, ClusterCentroids, and SMOTEENN.
+
+To reduce bias, the BalancedRandomForestClassifier and EasyEnsembleClassifier machine learning models are also used to predict credit risk.  The performance of each model is compared and evaluated.
  
  The analysis process was broken down into
     - Preprocessing Data(Encoding, Splitting, Scaling)
     - Training and Testing
     - and Deploying the Models
     
- At the end of every model deployment, a Balanced Accuracy Score, Confusion Matrix and Imbalanced Classification Report was generated to assess the performace of that model.   
- 
-
-The precision values for high-risk loans across all models was very low (ranging from 0.02 to 0.09) indicating that there was a high number of False Positives( low-risk loans being labled as high-risk), in contrast the recall value for high-risk loans was decent to great (ranging from 0.7 to 0.92), indicating a low count of False Negatives (high-risk loans being labled as low-risk). The overall F1 score for high-risk loans was again very low( ranging from 0.04 to 0.16).
 
 **The Best Performing Model:**
 
