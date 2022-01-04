@@ -1,37 +1,29 @@
 # Credit_Risk_Analysis
 
-## Overview of the analysis: 
-Multiple methodologies and techniques are leveraged to predict credit risk using a dataset from LendingClub, which is a peer-to-peer lending services company. 
+Systems Used: <i><code> Python 3.8.11, Jupyter Notebook 6.4.3 </i> </code> <br />
+Data Source Provided: <i><code>LoanStats_2019Q1.csv</code></i>
 
-As credit risk is an  unbalanced classification problem where good loans signficantly outnumber risky loans, Python imbalanced-learn and scikit-learn libraries are used to build and evaluate models. Resampling algrotihms include RandomOverSampler, SMOTE, ClusterCentroids, and SMOTEENN.
+## Overview
+#### Machine Learning in Finance
+Credit risk is an inherently unbalanced classification problem due to the number of data points observed and weighed when applying. The task of building a reliable credit evaluation process is of the utmost importance for modern lenders. Machine learning solutions are powerful for predicting credit worthiness, anticipating anomalies, and reducing risk.
 
-To reduce bias, the BalancedRandomForestClassifier and EasyEnsembleClassifier machine learning models are also used to predict credit risk.  The performance of each model is compared and evaluated.
- 
- The analysis process was broken down into
-    - Preprocessing Data(Encoding, Splitting, Scaling)
-    - Training and Testing
-    - and Deploying the Models
-    
+The dataset used for this evaluation is from LendingClub, a peer-to-peer lending services company.
 
-**The Best Performing Model:**
+## Results
+#### Comparison of Models for Credit Decision
+When testing performace of these models, four primary measures are considered: accuracy, precision, recall, and processing time.
+- **Accuracy** is the ratio of correct predictions to the total number of input samples
+- **f1 score** is a simplified measure of model performance. It is a weighted harmonic mean of _precision_ and _recall_
+  - _**Precision**_ is the ability of a classifier not to label an instance positive that is actually negative
+  - _**Recall**_ is the ability of a model to find all positive instances
+-  **Processing time** is taken into consideration as the models all run at different rates of speed - this factor will be important when processing on a large-scale and considering service level expectations
 
-Overall looking at all the metrics, the model that performed the best was, 'Easy Ensemble Adaboost
-Classifier', with highest F1 score (for high-risk) of 0.16, highest F1 score (for low-risk) of 0.97 and the best accuracy score of 0.93.
+#### Performance Metrics
+We have chosen six models for comparison. The results for each present on a scale of 0 to 1. Closer to one indicates better performance in the testing environment.
+<img width="917" alt="Accuracy_Time_Results" src="https://user-images.githubusercontent.com/84740997/136130621-070a5d01-5b5d-4621-a417-a88a6c3caff9.png">
 
-**The Lowest Performing Model:**
+## Summary
+#### Recommendations
+- Our recommended processing model is the **Easy Ensemble Adaptive Boost Classifier (EEABC)**. With an accuracy score of 0.93, and f1 of 0.97, this is the most accurate performer of the six tested; **_however_**, there is a caveat in processing time. When running multiple credit applications, 33 seconds per decision can be prohibitive where time sensitity is important (i.e., an 'instant approval' promise).
 
-The model that didnt fare all that well realtive to others was undersampling with clustercentroids on logistic regression model. with lowest F1 of 0.4 (for high-risk), lowest F1 of 0.86 (for low-risk) and the second lowest balanced accuracy score of 0.82.
-
-**The Best Performing Model minus Ensemble:**
-
-the model that performed the best was, 'SMOTE', with relatively high F1 score (for high-risk) of 0.07,  relatively high F1 score (for low-risk) of 0.93 and a good balanced accuracy score of 0.84.
-
-**Balanced Random Forest Classifier's top 3 contributing feature variables were:**
-
-        -   0.079, 'total_rec_prncp'
-        -   0.059, 'total_pymnt'
-        -   0.056, 'total_pymnt_inv'
-        
-## Conclusion
-
-The "Easy Ensemble Adaboost", was the best performing model in this analysis and is hence recommended. However, we need to keep in mind that due to its high recall value and low precision value, it will have high False Positives, meaning many low-risk loans might get labled as high-risk as well, and will require additional time, effort and resources to vet them out. So keeping this in mind the recommended model can be used as an initial screening which can be further inspected.
+- A secondary recommendation is to use a two-tiered process by employing the **Balanced Random Forest Classifier (BRFC)** for fast primary processing (only 1.76 seconds per decision) that performs well regarding precision (0.99), and f1 (0.93). Accuracy and recall are behind EEABC at .078 and 0.87 respectively. EEABC could be run as a secondary pipeline for turn down applications and approval auditing.
